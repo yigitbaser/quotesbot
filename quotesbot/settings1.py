@@ -1,10 +1,14 @@
+from quotesbot.settings1 import *
 BOT_NAME = 'quotesbot'
 
 SPIDER_MODULES = ['quotesbot.spiders']
 NEWSPIDER_MODULE = 'quotesbot.spiders'
 
 LOG_LEVEL = 'INFO'
-DOWNLOAD_DELAY = 6
+
+
+DOWNLOAD_DELAY = 4
+
 
 DATABASE = {
     'drivername': 'postgres',
@@ -21,18 +25,23 @@ DATABASE = {
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 
-# Splash related settings
+#Splash stuff
 SPLASH_URL = 'http://localhost:8050'
+
 DOWNLOADER_MIDDLEWARES = {
     'scrapy_splash.SplashCookiesMiddleware': 723,
     'scrapy_splash.SplashMiddleware': 725,
     'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810,
 }
+
 SPIDER_MIDDLEWARES = {
     'scrapy_splash.SplashDeduplicateArgsMiddleware': 100,
 }
+
 DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
 
 ITEM_PIPELINES = {
-    'pipelines.PostgreSQLPipeline': 1,
+    'pipelines.PostgreSQLPipeline': 1,  # module_name should be the name of the module containing the PostgreSQLPipeline
 }
+
+process = CrawlerProcess(settings='settings')
